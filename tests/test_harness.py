@@ -9,7 +9,7 @@ from __future__ import annotations
 import torch
 
 from kaa.agent import extract_code, feedback, score
-from kaa.harness import check, has_triton_kernel, naive_eval, rigorous_eval, static_check
+from kaa.harness import check, has_triton_kernel, load, naive_eval, rigorous_eval, static_check
 from kaa.tasks import TASKS
 
 DEV, DT = "cpu", torch.float32
@@ -147,3 +147,21 @@ def test_agent_helpers():
     assert "shape_overfit" in feedback("rigorous_feedback", good)
     assert score("naive_feedback", good) == 1.5 and score("rigorous_feedback", good) == -1.0
     assert score("naive_feedback", {"static": "no"}) == -2.0
+
+
+def test_load_from_file_gives_decorators_their_source(tmp_path):
+    """Triton's @jit calls inspect.getsource on the function it wraps. That only works
+    when the candidate is imported from a real file, which load() must do."""
+    code = ("import inspect\n"
+            "def jit(f):\n"
+            "    inspect.getsource(f)\n"
+            "    return f\n"
+            "@jit\n"
+            "def _k(x):\n"
+            "    return x\n"
+            "def kernel(x):\n"
+            "    return _k(x)\n")
+    path = tmp_path / "cand.py"
+    path.write_text(code)
+    fn = load(path)
+    assert fn(3) == 3

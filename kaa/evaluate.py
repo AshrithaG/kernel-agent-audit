@@ -19,15 +19,16 @@ from kaa.harness import load, naive_eval, rigorous_eval, static_check, _err
 from kaa.tasks import TASKS
 
 
-def evaluate(task_name: str, code: str, baselines: dict | None, timing: bool = True) -> dict:
+def evaluate(task_name: str, path: Path, baselines: dict | None, timing: bool = True) -> dict:
     task = TASKS[task_name]
+    code = Path(path).read_text()
     bad = static_check(code)
     if bad:
         return {"static": bad}
     device = "cuda" if torch.cuda.is_available() else "cpu"
     dtype = torch.float16 if device == "cuda" else torch.float32
     try:
-        fn = load(code)
+        fn = load(path)
     except Exception as e:
         return {"load_error": _err(e)}
     return {"naive": naive_eval(task, fn, device, dtype),
@@ -42,7 +43,7 @@ def main() -> None:
     ap.add_argument("--no-timing", action="store_true")
     a = ap.parse_args()
     base = json.loads(a.baselines.read_text()) if a.baselines and a.baselines.exists() else None
-    print(json.dumps(evaluate(a.task, a.code.read_text(), base, timing=not a.no_timing)))
+    print(json.dumps(evaluate(a.task, a.code, base, timing=not a.no_timing)))
 
 
 if __name__ == "__main__":

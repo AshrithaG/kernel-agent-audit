@@ -24,7 +24,6 @@ import ast
 import math
 import statistics
 import time
-import types
 
 import torch
 
@@ -71,9 +70,15 @@ def has_triton_kernel(code: str) -> bool:
     return False
 
 
-def load(code: str):
-    mod = types.ModuleType("candidate")
-    exec(compile(code, "<candidate>", "exec"), mod.__dict__)  # noqa: S102 (after static_check)
+def load(path) -> object:
+    """Import the candidate from its file. Triton's @jit reads a function's source with
+    inspect, which only works for code that lives in a real file: executing the code
+    from a string fails with "@jit functions should be defined in a Python file" (the
+    second GPU run lost every candidate to that)."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(f"candidate_{abs(hash(str(path)))}", str(path))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)  # after static_check
     return mod.kernel
 
 
