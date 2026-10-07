@@ -69,3 +69,15 @@ def test_loop(server, tmp_path, monkeypatch):
     assert set(final) == {"softmax|naive_feedback", "softmax|rigorous_feedback"}
     text = report.main(out)
     assert "Speedup claims" in text and "not_a_triton_kernel" in text
+
+
+def test_loop_with_relative_out_dir(server, tmp_path, monkeypatch):
+    """The output folder as a relative path, as tools/run_vm.sh passes it: every candidate
+    must still be found and run (none may come back as an import failure)."""
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(sys, "argv", ["agent", "--base-url", server, "--model", "stub", "--tasks", "softmax",
+                                      "--rounds", "1", "--samples", "2", "--out", "results/rel",
+                                      "--baselines", "results/none.json"])
+    agent.main()
+    recs = [json.loads(ln) for ln in (tmp_path / "results/rel/candidates.jsonl").read_text().splitlines()]
+    assert recs and all("naive" in r for r in recs), [r.get("load_error") for r in recs]

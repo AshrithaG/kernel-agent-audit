@@ -28,7 +28,7 @@ echo "python: $py"
 nvidia-smi --query-gpu=name,driver_version --format=csv,noheader || { echo "nvidia-smi failed: GPU unusable"; exit 1; }
 
 MODEL="${MODEL:-Qwen/Qwen2.5-Coder-14B-Instruct-AWQ}"
-ROUNDS="${ROUNDS:-3}"; SAMPLES="${SAMPLES:-4}"; RUN="${RUN:-results/run1}"; PORT=8001
+ROUNDS="${ROUNDS:-3}"; SAMPLES="${SAMPLES:-4}"; RUN="${RUN:-results/run2}"; PORT=8001
 stages="${STAGES:-tests baselines smoke agent report}"
 want() { [[ " $stages " == *" $1 "* ]]; }
 step() { echo; echo "===== $* ($(date +%H:%M:%S))"; }
@@ -72,9 +72,15 @@ if want smoke || want agent; then start_server; fi
 
 if want smoke; then
   step "smoke: one task, one round"
+  rm -rf results/smoke
   "$py" -m kaa.agent --base-url "http://localhost:$PORT" --model "$MODEL" --tasks softmax \
     --rounds 1 --samples 2 --out results/smoke
   "$py" -m kaa.report results/smoke | head -20
+  ran=$("$py" -c "import json; print(sum('naive' in json.loads(l) for l in open('results/smoke/candidates.jsonl')))")
+  if [[ "$ran" == "0" ]]; then
+    echo "SMOKE FAILED: no candidate ran. Stopping before the full study."; exit 1
+  fi
+  echo "smoke: $ran candidates ran"
 fi
 
 if want agent; then

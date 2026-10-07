@@ -95,6 +95,10 @@ def chat(base_url: str, model: str, messages: list, n: int, temperature: float, 
 
 
 def run_candidate(task: str, code_path: Path, baselines: Path, timeout: int) -> dict:
+    # Absolute paths: the evaluator runs with the code's folder as its working directory,
+    # so a relative --code path would point nowhere (the first GPU run lost every
+    # candidate to exactly that).
+    code_path, baselines = code_path.resolve(), baselines.resolve()
     env = {k: os.environ[k] for k in ("PATH", "HOME", "CUDA_VISIBLE_DEVICES", "PYTHONPATH",
                                       "TRITON_CACHE_DIR", "LD_LIBRARY_PATH") if k in os.environ}
     env["PYTHONPATH"] = str(Path(__file__).resolve().parent.parent) + os.pathsep + env.get("PYTHONPATH", "")
