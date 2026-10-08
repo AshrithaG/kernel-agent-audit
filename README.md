@@ -60,7 +60,8 @@ On a CUDA machine with vLLM installed:
     bash tools/run_vm.sh 2>&1 | tee ~/kaa.log
 
 It times the baselines with the GPU otherwise idle, starts the model server, runs a
-one-task smoke test, then the full study, and writes `results/run1/report.md`.
+one-task smoke test (which stops everything if no candidate runs), then the full study,
+and writes `results/run3/report.md`.
 
 ## Results
 
@@ -80,9 +81,12 @@ One run on an RTX 4090 (`results/run3/`): Qwen2.5-Coder-14B-Instruct (AWQ, serve
 | ...faster than torch.compile under the rigorous harness | **0 of 75** |
 
 The 8 candidates that passed the naive check and failed the rigorous one were all
-`shape_overfit`: right at the dev shape, wrong on the others (typically a kernel that
-assumed the row width was a power of two). No candidate cached its output, wrote into its
-input or returned a view.
+`shape_overfit`: right at the dev shape, wrong on others. Six of them cap the block at 1,024
+or 2,048 columns while each program handles one whole row, several with a comment like
+"limit block size to 1024 to avoid too many threads", a CUDA thread-limit habit that does
+not apply to Triton. Rows wider than the cap silently lose their remaining columns, and the
+dev shape is exactly 1,024 wide, so the naive check cannot see it. No candidate cached its
+output, wrote into its input or returned a view.
 
 Careful timing did not deflate the speedups. Among the 87 kernels correct under both
 harnesses the naive speedup has a median of 2.98x and the rigorous one 4.36x, and the two
@@ -120,13 +124,14 @@ not among the tasks, 28 of 96 first attempts passed the naive check and 26 the r
 
 1. **Run 1** lost every candidate: the evaluator ran with the code's folder as its working
    directory and was handed a relative path. Not kept.
-2. **Run 2** (`results/run2/`) ran, but candidates were executed from a string, which Triton's
-   `@jit` cannot read source from, until a fix; after it, every error fed back to the model
-   was only its first line, which for a Triton compile error is a position with no cause, and
-   20 candidates were rejected for importing `time` or `numpy` or naming a parameter `input`.
-   Its first round is the no-notes comparison above. The file also holds a run interrupted
-   by hand; the analysis uses the complete run that follows it.
-3. **Run 3** (`results/run3/`) is the study: full error causes fed back, harmless imports
+2. **A smoke run** then stopped the next attempt before the study: candidates were executed
+   from a string, and Triton's `@jit` cannot read source from one.
+3. **Run 2** (`results/run2/`) ran in full, but every error fed back to the model was only its
+   first line, which for a Triton compile error is a position with no cause, and 20
+   candidates were rejected for importing `time` or `numpy` or naming a parameter `input`.
+   Its first round is the no-notes comparison above. The file also holds an attempt
+   interrupted by hand; the analysis uses the complete run that follows it.
+4. **Run 3** (`results/run3/`) is the study: full error causes fed back, harmless imports
    allowed, Triton notes in the prompt, 4 rounds.
 
 Each fix came with a test that fails without it.
