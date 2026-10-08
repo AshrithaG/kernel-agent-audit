@@ -1,0 +1,25 @@
+{
+ "base_url": "http://localhost:8001",
+ "model": "Qwen/Qwen2.5-Coder-14B-Instruct-AWQ",
+ "tasks": [
+  "add_rmsnorm",
+  "bias_gelu",
+  "causal_softmax",
+  "cross_entropy",
+  "layernorm",
+  "matmul_bias_relu",
+  "rmsnorm",
+  "rope",
+  "row_mean",
+  "softmax",
+  "swiglu",
+  "transpose"
+ ],
+ "rounds": 3,
+ "samples": 4,
+ "temperature": 0.7,
+ "max_tokens": 3000,
+ "timeout": 240,
+ "baselines": "results/baselines.json",
+ "out": "results/run2"
+}

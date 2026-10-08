@@ -28,7 +28,7 @@ echo "python: $py"
 nvidia-smi --query-gpu=name,driver_version --format=csv,noheader || { echo "nvidia-smi failed: GPU unusable"; exit 1; }
 
 MODEL="${MODEL:-Qwen/Qwen2.5-Coder-14B-Instruct-AWQ}"
-ROUNDS="${ROUNDS:-3}"; SAMPLES="${SAMPLES:-4}"; RUN="${RUN:-results/run2}"; PORT=8001
+ROUNDS="${ROUNDS:-4}"; SAMPLES="${SAMPLES:-4}"; RUN="${RUN:-results/run3}"; PORT=8001
 stages="${STAGES:-tests baselines smoke agent report}"
 want() { [[ " $stages " == *" $1 "* ]]; }
 step() { echo; echo "===== $* ($(date +%H:%M:%S))"; }

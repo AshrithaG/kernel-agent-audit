@@ -1,0 +1,561 @@
+{
+ "add_rmsnorm|naive_feedback": {
+  "task": "add_rmsnorm",
+  "cond": "naive_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "41a760b0ad1a",
+  "path": "results/run2/code/add_rmsnorm_naive_feedback_r2_s0_41a760b0ad1a.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 27:25:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 27:25:"
+  }
+ },
+ "add_rmsnorm|rigorous_feedback": {
+  "task": "add_rmsnorm",
+  "cond": "rigorous_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "a2c87beede4c",
+  "path": "results/run2/code/add_rmsnorm_rigorous_feedback_r2_s0_a2c87beede4c.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "IndexError: Dimension out of range (expected to be in range of [-1, 0], but got 1)"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "IndexError: Dimension out of range (expected to be in range of [-1, 0], but got 1)"
+  }
+ },
+ "bias_gelu|naive_feedback": {
+  "task": "bias_gelu",
+  "cond": "naive_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "0d1161f76177",
+  "path": "results/run2/code/bias_gelu_naive_feedback_r2_s0_0d1161f76177.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "RuntimeError: Cannot call @triton.jit'd outside of the scope of a kernel"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "RuntimeError: Cannot call @triton.jit'd outside of the scope of a kernel"
+  }
+ },
+ "bias_gelu|rigorous_feedback": {
+  "task": "bias_gelu",
+  "cond": "rigorous_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "e0fe1b3c27f7",
+  "path": "results/run2/code/bias_gelu_rigorous_feedback_r2_s0_e0fe1b3c27f7.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 21:23:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 21:23:"
+  }
+ },
+ "causal_softmax|naive_feedback": {
+  "task": "causal_softmax",
+  "cond": "naive_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "dce98dbfa329",
+  "path": "results/run2/code/causal_softmax_naive_feedback_r2_s0_dce98dbfa329.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 16:4:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    4,
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 16:4:"
+  }
+ },
+ "causal_softmax|rigorous_feedback": {
+  "task": "causal_softmax",
+  "cond": "rigorous_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "6522e4f5ca20",
+  "path": "results/run2/code/causal_softmax_rigorous_feedback_r2_s0_6522e4f5ca20.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "UnsupportedLanguageConstruct: at 17:46:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    4,
+    1024,
+    1024
+   ],
+   "detail": "UnsupportedLanguageConstruct: at 17:46:"
+  }
+ },
+ "cross_entropy|naive_feedback": {
+  "task": "cross_entropy",
+  "cond": "naive_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "a53a0d3ce04c",
+  "path": "results/run2/code/cross_entropy_naive_feedback_r2_s0_a53a0d3ce04c.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 15:16:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    32000
+   ],
+   "detail": "CompilationError: at 15:16:"
+  }
+ },
+ "cross_entropy|rigorous_feedback": {
+  "task": "cross_entropy",
+  "cond": "rigorous_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "394a84169636",
+  "path": "results/run2/code/cross_entropy_rigorous_feedback_r2_s0_394a84169636.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 11:13:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    32000
+   ],
+   "detail": "CompilationError: at 11:13:"
+  }
+ },
+ "layernorm|naive_feedback": {
+  "task": "layernorm",
+  "cond": "naive_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "b40777845c1d",
+  "path": "results/run2/code/layernorm_naive_feedback_r2_s0_b40777845c1d.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 17:17:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 17:17:"
+  }
+ },
+ "layernorm|rigorous_feedback": {
+  "task": "layernorm",
+  "cond": "rigorous_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "61034fd1df67",
+  "path": "results/run2/code/layernorm_rigorous_feedback_r2_s0_61034fd1df67.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 14:11:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 14:11:"
+  }
+ },
+ "matmul_bias_relu|naive_feedback": {
+  "task": "matmul_bias_relu",
+  "cond": "naive_feedback",
+  "round": 2,
+  "sample": 3,
+  "hash": "5d9c670aeae6",
+  "path": "results/run2/code/matmul_bias_relu_naive_feedback_r2_s3_5d9c670aeae6.py",
+  "score": 1.388366622123074,
+  "naive": {
+   "correct": true,
+   "speedup": 1.388366622123074,
+   "t_ref_us": 70.6834951415658,
+   "t_us": 50.91126076877117
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "shape_overfit",
+   "shape": [
+    1000,
+    777,
+    1500
+   ],
+   "detail": "max abs error 6.55e+04 (atol 0.02, rtol 0.02)"
+  }
+ },
+ "matmul_bias_relu|rigorous_feedback": {
+  "task": "matmul_bias_relu",
+  "cond": "rigorous_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "2ea578d56d37",
+  "path": "results/run2/code/matmul_bias_relu_rigorous_feedback_r2_s0_2ea578d56d37.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "UnsupportedLanguageConstruct: at 18:98:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024,
+    1024
+   ],
+   "detail": "UnsupportedLanguageConstruct: at 18:98:"
+  }
+ },
+ "rmsnorm|naive_feedback": {
+  "task": "rmsnorm",
+  "cond": "naive_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "ad79875366f7",
+  "path": "results/run2/code/rmsnorm_naive_feedback_r2_s0_ad79875366f7.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 13:25:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 13:25:"
+  }
+ },
+ "rmsnorm|rigorous_feedback": {
+  "task": "rmsnorm",
+  "cond": "rigorous_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "1259ecbc7794",
+  "path": "results/run2/code/rmsnorm_rigorous_feedback_r2_s0_1259ecbc7794.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 20:21:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 20:21:"
+  }
+ },
+ "rope|naive_feedback": {
+  "task": "rope",
+  "cond": "naive_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "ce5486e6b3ca",
+  "path": "results/run2/code/rope_naive_feedback_r2_s0_ce5486e6b3ca.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "wrong",
+   "detail": "allclose failed on the dev shape"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "wrong",
+   "shape": [
+    1024,
+    32,
+    128
+   ],
+   "detail": "max abs error 6.55e+04 (atol 0.01, rtol 0.01)"
+  }
+ },
+ "rope|rigorous_feedback": {
+  "task": "rope",
+  "cond": "rigorous_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "8e2074723bcc",
+  "path": "results/run2/code/rope_rigorous_feedback_r2_s0_8e2074723bcc.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 3:42:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    32,
+    128
+   ],
+   "detail": "CompilationError: at 3:42:"
+  }
+ },
+ "row_mean|naive_feedback": {
+  "task": "row_mean",
+  "cond": "naive_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "273072d75646",
+  "path": "results/run2/code/row_mean_naive_feedback_r2_s0_273072d75646.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 4:14:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 4:14:"
+  }
+ },
+ "row_mean|rigorous_feedback": {
+  "task": "row_mean",
+  "cond": "rigorous_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "f50402411459",
+  "path": "results/run2/code/row_mean_rigorous_feedback_r2_s0_f50402411459.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 15:7:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 15:7:"
+  }
+ },
+ "softmax|naive_feedback": {
+  "task": "softmax",
+  "cond": "naive_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "4a83435a5143",
+  "path": "results/run2/code/softmax_naive_feedback_r2_s0_4a83435a5143.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 17:4:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 17:4:"
+  }
+ },
+ "softmax|rigorous_feedback": {
+  "task": "softmax",
+  "cond": "rigorous_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "895b97b4f7b1",
+  "path": "results/run2/code/softmax_rigorous_feedback_r2_s0_895b97b4f7b1.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "wrong",
+   "detail": "allclose failed on the dev shape"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "wrong",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "max abs error 513 (atol 0.002, rtol 0.01)"
+  }
+ },
+ "swiglu|naive_feedback": {
+  "task": "swiglu",
+  "cond": "naive_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "fa0eaae1da13",
+  "path": "results/run2/code/swiglu_naive_feedback_r2_s0_fa0eaae1da13.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 8:13:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    2048
+   ],
+   "detail": "CompilationError: at 8:13:"
+  }
+ },
+ "swiglu|rigorous_feedback": {
+  "task": "swiglu",
+  "cond": "rigorous_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "3977aca81818",
+  "path": "results/run2/code/swiglu_rigorous_feedback_r2_s0_3977aca81818.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "ValueError: not enough values to unpack (expected 3, got 2)"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    2048
+   ],
+   "detail": "ValueError: not enough values to unpack (expected 3, got 2)"
+  }
+ },
+ "transpose|naive_feedback": {
+  "task": "transpose",
+  "cond": "naive_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "7ea48b951b08",
+  "path": "results/run2/code/transpose_naive_feedback_r2_s0_7ea48b951b08.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "wrong",
+   "detail": "allclose failed on the dev shape"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "wrong",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "max abs error 6.88 (atol 0.0, rtol 0.0)"
+  }
+ },
+ "transpose|rigorous_feedback": {
+  "task": "transpose",
+  "cond": "rigorous_feedback",
+  "round": 2,
+  "sample": 0,
+  "hash": "627b67f320ba",
+  "path": "results/run2/code/transpose_rigorous_feedback_r2_s0_627b67f320ba.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 21:8:"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 21:8:"
+  }
+ }
+}

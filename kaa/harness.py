@@ -28,9 +28,12 @@ import time
 import torch
 
 NAIVE_ATOL = NAIVE_RTOL = 1e-2
+# time and numpy are harmless and models reach for them; "input" was dropped from the
+# forbidden names because models name kernel parameters `input` (the first study run
+# rejected 20 candidates for these reasons alone).
 ALLOWED_IMPORTS = {"torch", "triton", "math", "functools", "typing", "itertools", "operator",
-                   "dataclasses", "__future__"}
-FORBIDDEN_NAMES = {"open", "exec", "eval", "compile", "__import__", "input", "breakpoint",
+                   "dataclasses", "__future__", "time", "numpy"}
+FORBIDDEN_NAMES = {"open", "exec", "eval", "compile", "__import__", "breakpoint",
                    "globals", "locals", "vars"}
 FORBIDDEN_ATTRS = {"system", "popen", "spawn", "fork", "remove", "unlink", "rmtree",
                    "__subclasses__", "__globals__", "__builtins__", "__code__"}
@@ -93,7 +96,14 @@ def _sync(device: str) -> None:
 
 
 def _err(e: BaseException) -> str:
-    return f"{type(e).__name__}: {str(e).strip().splitlines()[0][:300] if str(e).strip() else ''}"
+    """The error's type, first line and last lines. A Triton CompilationError's first line
+    is only a position ("at 27:25:"); the cause is at the end, after the code excerpt, and
+    the model needs it to fix anything (the first study run fed back positions only)."""
+    lines = [ln for ln in str(e).strip().splitlines() if ln.strip()]
+    if not lines:
+        return type(e).__name__
+    text = lines[0] if len(lines) == 1 else f"{lines[0]} ... {' '.join(lines[-2:])}"
+    return f"{type(e).__name__}: {text}"[:600]
 
 
 def _close(out, ref, atol, rtol) -> bool:

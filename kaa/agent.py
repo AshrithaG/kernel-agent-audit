@@ -43,9 +43,46 @@ It must work for any input shape of the form described, not just one size. You m
 triton and the Python standard math library. The inputs are float16 CUDA tensors (integer targets are int64)."""
 
 
+# What an agent setup would give a model about Triton: the language's common traps and one
+# complete kernel for an op that is not among the tasks (scale each row by a vector).
+TRITON_NOTES = """Triton notes (Triton 3.7):
+- A @triton.jit kernel runs once per program instance; there are no thread indices. Use
+  tl.program_id(axis) for the block and tl.arange(0, BLOCK) for the elements in it.
+- BLOCK sizes must be tl.constexpr powers of two; mask every load and store with a bound check.
+- Use x * x, not x ** 2. Use tl.exp, tl.log, tl.sqrt, tl.rsqrt, tl.sigmoid, tl.maximum; tanh and
+  erf come from triton.language.extra.libdevice. Python's math functions only work on constants.
+- Reductions: tl.sum, tl.max, tl.min over an axis of a block. Shapes inside a kernel must be
+  compile-time constants.
+- Do the arithmetic in float32 (x.to(tl.float32)) and cast the result back when storing.
+- Launch from Python: kernel[grid](args..., BLOCK=...), where grid is a tuple of ints.
+
+Example, a complete file for a different op (multiply each row of x by a vector s):
+```python
+import torch
+import triton
+import triton.language as tl
+
+@triton.jit
+def _scale_rows(x_ptr, s_ptr, out_ptr, n_cols, BLOCK: tl.constexpr):
+    row = tl.program_id(0)
+    cols = tl.arange(0, BLOCK)
+    mask = cols < n_cols
+    x = tl.load(x_ptr + row * n_cols + cols, mask=mask, other=0.0).to(tl.float32)
+    s = tl.load(s_ptr + cols, mask=mask, other=0.0).to(tl.float32)
+    tl.store(out_ptr + row * n_cols + cols, (x * s).to(out_ptr.dtype.element_ty), mask=mask)
+
+def kernel(x, s):
+    x = x.contiguous()
+    out = torch.empty_like(x)
+    n_rows, n_cols = x.shape
+    _scale_rows[(n_rows,)](x, s, out, n_cols, BLOCK=triton.next_power_of_2(n_cols))
+    return out
+```"""
+
+
 def first_prompt(task) -> str:
     return (f"Task: {task.description}\n\nReference implementation:\n```python\n{task.source}```\n\n"
-            f"{CONTRACT}\n\nGoal: make it as fast as possible on an RTX 4090.")
+            f"{CONTRACT}\n\n{TRITON_NOTES}\n\nGoal: make it as fast as possible on an RTX 4090.")
 
 
 def feedback(cond: str, res: dict) -> str:

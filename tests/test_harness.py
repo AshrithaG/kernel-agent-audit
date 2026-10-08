@@ -165,3 +165,14 @@ def test_load_from_file_gives_decorators_their_source(tmp_path):
     path.write_text(code)
     fn = load(path)
     assert fn(3) == 3
+
+
+def test_static_check_allows_harmless_names():
+    assert static_check("import time\nimport numpy as np\ndef kernel(input):\n    return input") is None
+
+
+def test_error_text_keeps_the_cause():
+    from kaa.harness import _err
+    e = RuntimeError("at 27:25:\n    sum_sq = tl.sum(h ** 2, axis=0)\n                    ^\nunsupported operand ** for tensors")
+    text = _err(e)
+    assert text.startswith("RuntimeError: at 27:25:") and "unsupported operand" in text
