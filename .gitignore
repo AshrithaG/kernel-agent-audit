@@ -2,3 +2,7 @@
 __pycache__/
 *.pyc
 .pytest_cache/
+# Run 1 lost every candidate to a path bug (see README); the server log has machine paths.
+results/run1/
+results/smoke/
+results/vllm_server.log

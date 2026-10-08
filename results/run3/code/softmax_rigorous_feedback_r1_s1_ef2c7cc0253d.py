@@ -1,0 +1,34 @@
+import torch
+import triton
+import triton.language as tl
+
+@triton.jit
+def _softmax_kernel(x_ptr, out_ptr, n_cols, BLOCK: tl.constexpr):
+    row = tl.program_id(0)
+    cols = tl.arange(0, BLOCK)
+    mask = cols < n_cols
+    x = tl.load(x_ptr + row * n_cols + cols, mask=mask, other=float('-inf')).to(tl.float32)
+    
+    # Compute max for numerical stability
+    max_x = tl.max(x, axis=0)
+    x = x - max_x
+    
+    # Compute exp
+    exp_x = tl.exp(x)
+    
+    # Compute sum of exps using warp reduction
+    sum_exp_x = exp_x
+    for offset in range(BLOCK // 2, 0, -32):
+        sum_exp_x += tl.where(cols < offset, tl.load(sum_exp_x + offset, mask=mask, other=0.0), 0.0)
+    
+    # Compute softmax
+    softmax_x = exp_x / sum_exp_x
+    
+    tl.store(out_ptr + row * n_cols + cols, softmax_x.to(out_ptr.dtype.element_ty), mask=mask)
+
+def kernel(x):
+    x = x.contiguous()
+    out = torch.empty_like(x)
+    n_rows, n_cols = x.shape
+    _softmax_kernel[(n_rows,)](x, out, n_cols, BLOCK=triton.next_power_of_2(n_cols))
+    return out

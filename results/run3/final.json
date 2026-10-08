@@ -1,0 +1,983 @@
+{
+ "add_rmsnorm|naive_feedback": {
+  "task": "add_rmsnorm",
+  "cond": "naive_feedback",
+  "round": 3,
+  "sample": 0,
+  "hash": "9314b5800c5c",
+  "path": "results/run3/code/add_rmsnorm_naive_feedback_r3_s0_9314b5800c5c.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 7:8: ...         ^ `other` cannot be provided without `mask`"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 7:8: ...         ^ `other` cannot be provided without `mask`"
+  }
+ },
+ "add_rmsnorm|rigorous_feedback": {
+  "task": "add_rmsnorm",
+  "cond": "rigorous_feedback",
+  "round": 3,
+  "sample": 0,
+  "hash": "4266096ba4cd",
+  "path": "results/run3/code/add_rmsnorm_rigorous_feedback_r3_s0_4266096ba4cd.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "wrong",
+   "detail": "allclose failed on the dev shape"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "wrong",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "max abs error 6.55e+04 (atol 0.01, rtol 0.01)"
+  }
+ },
+ "bias_gelu|naive_feedback": {
+  "task": "bias_gelu",
+  "cond": "naive_feedback",
+  "round": 3,
+  "sample": 0,
+  "hash": "e72b16dfffa9",
+  "path": "results/run3/code/bias_gelu_naive_feedback_r3_s0_e72b16dfffa9.py",
+  "score": 1.6916057814124774,
+  "naive": {
+   "correct": true,
+   "speedup": 1.6916057814124774,
+   "t_ref_us": 34.69460643827915,
+   "t_us": 20.509865134954453
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "shape_overfit",
+   "shape": [
+    4096,
+    4096
+   ],
+   "detail": "max abs error 6.48e+04 (atol 0.01, rtol 0.01)"
+  }
+ },
+ "bias_gelu|rigorous_feedback": {
+  "task": "bias_gelu",
+  "cond": "rigorous_feedback",
+  "round": 1,
+  "sample": 0,
+  "hash": "219a84bd0327",
+  "path": "results/run3/code/bias_gelu_rigorous_feedback_r1_s0_219a84bd0327.py",
+  "score": 1.6240269300109857,
+  "naive": {
+   "correct": true,
+   "speedup": 1.6337787409795894,
+   "t_ref_us": 34.648203290998936,
+   "t_us": 21.20740246027708
+  },
+  "rigorous": {
+   "correct": true,
+   "per_shape": [
+    {
+     "shape": [
+      1024,
+      1024
+     ],
+     "t_us": 8.191999979317188,
+     "vs_eager": 3.3750000142108547,
+     "vs_compile": 1.0
+    },
+    {
+     "shape": [
+      4096,
+      4096
+     ],
+     "t_us": 80.89599758386612,
+     "vs_eager": 6.253164466027125,
+     "vs_compile": 0.9493671620550141
+    },
+    {
+     "shape": [
+      1000,
+      3001
+     ],
+     "t_us": 20.479999482631683,
+     "vs_eager": 2.7500000909494724,
+     "vs_compile": 0.8000000181898945
+    },
+    {
+     "shape": [
+      1,
+      50257
+     ],
+     "t_us": 191.48799777030945,
+     "vs_eager": 0.07486631205905557,
+     "vs_compile": 0.026737967550318112
+    },
+    {
+     "shape": [
+      8192,
+      128
+     ],
+     "t_us": 10.239999741315842,
+     "vs_eager": 2.600000036379789,
+     "vs_compile": 0.8000000181898945
+    }
+   ],
+   "speedup_vs_eager": 1.6240269300109857,
+   "speedup_vs_compile": 0.43868069036812846
+  }
+ },
+ "causal_softmax|naive_feedback": {
+  "task": "causal_softmax",
+  "cond": "naive_feedback",
+  "round": 1,
+  "sample": 0,
+  "hash": "8d4a1caabf0b",
+  "path": "results/run3/code/causal_softmax_naive_feedback_r1_s0_8d4a1caabf0b.py",
+  "score": 3.1753547766888435,
+  "naive": {
+   "correct": true,
+   "speedup": 3.1753547766888435,
+   "t_ref_us": 63.9862148091197,
+   "t_us": 20.150886848568916
+  },
+  "rigorous": {
+   "correct": true,
+   "per_shape": [
+    {
+     "shape": [
+      4,
+      1024,
+      1024
+     ],
+     "t_us": 26.623999699950218,
+     "vs_eager": 3.269230793448084,
+     "vs_compile": 0.8461538622987227
+    },
+    {
+     "shape": [
+      1,
+      4096,
+      4096
+     ],
+     "t_us": 76.80000364780426,
+     "vs_eager": 9.426666596817476,
+     "vs_compile": 0.9733333255723122
+    },
+    {
+     "shape": [
+      3,
+      777,
+      777
+     ],
+     "t_us": 14.175999909639359,
+     "vs_eager": 3.6760722626434794,
+     "vs_compile": 0.9390519141385752
+    },
+    {
+     "shape": [
+      16,
+      128,
+      128
+     ],
+     "t_us": 6.144000217318535,
+     "vs_eager": 3.177083159645115,
+     "vs_compile": 1.0
+    }
+   ],
+   "speedup_vs_eager": 4.355661163500228,
+   "speedup_vs_compile": 0.9377782031279478
+  }
+ },
+ "causal_softmax|rigorous_feedback": {
+  "task": "causal_softmax",
+  "cond": "rigorous_feedback",
+  "round": 3,
+  "sample": 0,
+  "hash": "a504bfe4ee22",
+  "path": "results/run3/code/causal_softmax_rigorous_feedback_r3_s0_a504bfe4ee22.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "ValueError: too many values to unpack (expected 2)"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    4,
+    1024,
+    1024
+   ],
+   "detail": "ValueError: too many values to unpack (expected 2)"
+  }
+ },
+ "cross_entropy|naive_feedback": {
+  "task": "cross_entropy",
+  "cond": "naive_feedback",
+  "round": 3,
+  "sample": 0,
+  "hash": "1b54e81036c2",
+  "path": "results/run3/code/cross_entropy_naive_feedback_r3_s0_1b54e81036c2.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 8:44: ...                                             ^ AttributeError(\"module 'triton.language' has no attribute 'ones'\")"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    32000
+   ],
+   "detail": "CompilationError: at 8:44: ...                                             ^ AttributeError(\"module 'triton.language' has no attribute 'ones'\")"
+  }
+ },
+ "cross_entropy|rigorous_feedback": {
+  "task": "cross_entropy",
+  "cond": "rigorous_feedback",
+  "round": 3,
+  "sample": 0,
+  "hash": "8d364559e1ef",
+  "path": "results/run3/code/cross_entropy_rigorous_feedback_r3_s0_8d364559e1ef.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 8:44: ...                                             ^ unsupported tensor index: constexpr[0]"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    32000
+   ],
+   "detail": "CompilationError: at 8:44: ...                                             ^ unsupported tensor index: constexpr[0]"
+  }
+ },
+ "layernorm|naive_feedback": {
+  "task": "layernorm",
+  "cond": "naive_feedback",
+  "round": 3,
+  "sample": 0,
+  "hash": "195211b77aae",
+  "path": "results/run3/code/layernorm_naive_feedback_r3_s0_195211b77aae.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 11:4: ...     ^ Mask argument cannot be block type if pointer argument is not a block"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 11:4: ...     ^ Mask argument cannot be block type if pointer argument is not a block"
+  }
+ },
+ "layernorm|rigorous_feedback": {
+  "task": "layernorm",
+  "cond": "rigorous_feedback",
+  "round": 2,
+  "sample": 3,
+  "hash": "97de822ecd61",
+  "path": "results/run3/code/layernorm_rigorous_feedback_r2_s3_97de822ecd61.py",
+  "score": 3.4101412818428214,
+  "naive": {
+   "correct": true,
+   "speedup": 1.8005093279811928,
+   "t_ref_us": 39.62269984185696,
+   "t_us": 22.0063840970397
+  },
+  "rigorous": {
+   "correct": true,
+   "per_shape": [
+    {
+     "shape": [
+      1024,
+      1024
+     ],
+     "t_us": 8.191999979317188,
+     "vs_eager": 3.2499999715782906,
+     "vs_compile": 1.0
+    },
+    {
+     "shape": [
+      4096,
+      4096
+     ],
+     "t_us": 76.9759975373745,
+     "vs_eager": 4.75743106535824,
+     "vs_compile": 0.9711079472297629
+    },
+    {
+     "shape": [
+      1000,
+      3001
+     ],
+     "t_us": 19.45599913597107,
+     "vs_eager": 3.5263159910237656,
+     "vs_compile": 1.0526315991023765
+    },
+    {
+     "shape": [
+      1,
+      8192
+     ],
+     "t_us": 6.144000217318535,
+     "vs_eager": 3.499999848417555,
+     "vs_compile": 0.8203124644728644
+    },
+    {
+     "shape": [
+      8192,
+      128
+     ],
+     "t_us": 12.28800043463707,
+     "vs_eager": 2.4166666414029256,
+     "vs_compile": 0.6666666414029259
+    }
+   ],
+   "speedup_vs_eager": 3.4101412818428214,
+   "speedup_vs_compile": 0.8901975389184013
+  }
+ },
+ "matmul_bias_relu|naive_feedback": {
+  "task": "matmul_bias_relu",
+  "cond": "naive_feedback",
+  "round": 3,
+  "sample": 0,
+  "hash": "20681a5258c6",
+  "path": "results/run3/code/matmul_bias_relu_naive_feedback_r3_s0_20681a5258c6.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 22:26: ...                           ^ ValueError('Cannot make_shape_compatible: incompatible dimensions at index 0: 32 and 16')"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 22:26: ...                           ^ ValueError('Cannot make_shape_compatible: incompatible dimensions at index 0: 32 and 16')"
+  }
+ },
+ "matmul_bias_relu|rigorous_feedback": {
+  "task": "matmul_bias_relu",
+  "cond": "rigorous_feedback",
+  "round": 3,
+  "sample": 0,
+  "hash": "f927ad8acb6f",
+  "path": "results/run3/code/matmul_bias_relu_rigorous_feedback_r3_s0_f927ad8acb6f.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 26:15: ...                ^ input and other must have equal reduction dimensions"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 26:15: ...                ^ input and other must have equal reduction dimensions"
+  }
+ },
+ "rmsnorm|naive_feedback": {
+  "task": "rmsnorm",
+  "cond": "naive_feedback",
+  "round": 3,
+  "sample": 2,
+  "hash": "67746715e63f",
+  "path": "results/run3/code/rmsnorm_naive_feedback_r3_s2_67746715e63f.py",
+  "score": 3.388125109208457,
+  "naive": {
+   "correct": true,
+   "speedup": 3.388125109208457,
+   "t_ref_us": 67.71963089704514,
+   "t_us": 19.98734660446644
+  },
+  "rigorous": {
+   "correct": true,
+   "per_shape": [
+    {
+     "shape": [
+      1024,
+      1024
+     ],
+     "t_us": 8.191999979317188,
+     "vs_eager": 4.500000170530257,
+     "vs_compile": 0.986328134547918
+    },
+    {
+     "shape": [
+      4096,
+      4096
+     ],
+     "t_us": 76.27199962735176,
+     "vs_eager": 8.766939748147282,
+     "vs_compile": 0.9676945648770356
+    },
+    {
+     "shape": [
+      1000,
+      3001
+     ],
+     "t_us": 18.928000703454018,
+     "vs_eager": 3.683854573158761,
+     "vs_compile": 1.0278950978917019
+    },
+    {
+     "shape": [
+      1,
+      8192
+     ],
+     "t_us": 4.095999989658594,
+     "vs_eager": 5.249999971578291,
+     "vs_compile": 1.0
+    },
+    {
+     "shape": [
+      8192,
+      128
+     ],
+     "t_us": 11.264000087976456,
+     "vs_eager": 3.363636483900125,
+     "vs_compile": 0.802556804558189
+    }
+   ],
+   "speedup_vs_eager": 4.806913166434679,
+   "speedup_vs_compile": 0.9533159512576839
+  }
+ },
+ "rmsnorm|rigorous_feedback": {
+  "task": "rmsnorm",
+  "cond": "rigorous_feedback",
+  "round": 0,
+  "sample": 0,
+  "hash": "1cf2cbc9b123",
+  "path": "results/run3/code/rmsnorm_rigorous_feedback_r0_s0_1cf2cbc9b123.py",
+  "score": 4.823277185956754,
+  "naive": {
+   "correct": true,
+   "speedup": 3.283283576542196,
+   "t_ref_us": 69.93049755692482,
+   "t_us": 21.298951469361782
+  },
+  "rigorous": {
+   "correct": true,
+   "per_shape": [
+    {
+     "shape": [
+      1024,
+      1024
+     ],
+     "t_us": 8.191999979317188,
+     "vs_eager": 4.500000170530257,
+     "vs_compile": 0.986328134547918
+    },
+    {
+     "shape": [
+      4096,
+      4096
+     ],
+     "t_us": 76.67200267314911,
+     "vs_eager": 8.721202027997592,
+     "vs_compile": 0.9626460366026084
+    },
+    {
+     "shape": [
+      1000,
+      3001
+     ],
+     "t_us": 18.5120003297925,
+     "vs_eager": 3.766637894876966,
+     "vs_compile": 1.0509938844728375
+    },
+    {
+     "shape": [
+      1,
+      8192
+     ],
+     "t_us": 4.095999989658594,
+     "vs_eager": 5.249999971578291,
+     "vs_compile": 1.0
+    },
+    {
+     "shape": [
+      8192,
+      128
+     ],
+     "t_us": 11.264000087976456,
+     "vs_eager": 3.363636483900125,
+     "vs_compile": 0.802556804558189
+    }
+   ],
+   "speedup_vs_eager": 4.823277185956754,
+   "speedup_vs_compile": 0.9565612940165291
+  }
+ },
+ "rope|naive_feedback": {
+  "task": "rope",
+  "cond": "naive_feedback",
+  "round": 2,
+  "sample": 1,
+  "hash": "960e69e01292",
+  "path": "results/run3/code/rope_naive_feedback_r2_s1_960e69e01292.py",
+  "score": 5.142724823457429,
+  "naive": {
+   "correct": true,
+   "speedup": 5.142724823457429,
+   "t_ref_us": 106.26339353621006,
+   "t_us": 20.66285815089941
+  },
+  "rigorous": {
+   "correct": true,
+   "per_shape": [
+    {
+     "shape": [
+      1024,
+      32,
+      128
+     ],
+     "t_us": 25.599999353289604,
+     "vs_eager": 4.2800001018634095,
+     "vs_compile": 0.8400000145519156
+    },
+    {
+     "shape": [
+      4096,
+      32,
+      128
+     ],
+     "t_us": 85.40799841284752,
+     "vs_eager": 9.567628776001257,
+     "vs_compile": 0.8872237344195274
+    },
+    {
+     "shape": [
+      1000,
+      7,
+      64
+     ],
+     "t_us": 8.191999979317188,
+     "vs_eager": 4.500000170530257,
+     "vs_compile": 0.5
+    },
+    {
+     "shape": [
+      1,
+      32,
+      128
+     ],
+     "t_us": 3.0720001086592674,
+     "vs_eager": 8.666666262446814,
+     "vs_compile": 1.0
+    }
+   ],
+   "speedup_vs_eager": 6.321616919846455,
+   "speedup_vs_compile": 0.7813050156268814
+  }
+ },
+ "rope|rigorous_feedback": {
+  "task": "rope",
+  "cond": "rigorous_feedback",
+  "round": 3,
+  "sample": 1,
+  "hash": "b6d9c65eddc3",
+  "path": "results/run3/code/rope_rigorous_feedback_r3_s1_b6d9c65eddc3.py",
+  "score": 6.230383134647593,
+  "naive": {
+   "correct": true,
+   "speedup": 4.967193569076639,
+   "t_ref_us": 99.7157534584403,
+   "t_us": 20.074867643415928
+  },
+  "rigorous": {
+   "correct": true,
+   "per_shape": [
+    {
+     "shape": [
+      1024,
+      32,
+      128
+     ],
+     "t_us": 26.623999699950218,
+     "vs_eager": 4.115384655746807,
+     "vs_compile": 0.8076923103831205
+    },
+    {
+     "shape": [
+      4096,
+      32,
+      128
+     ],
+     "t_us": 87.0399996638298,
+     "vs_eager": 9.388235598247642,
+     "vs_compile": 0.8705882765832891
+    },
+    {
+     "shape": [
+      1000,
+      7,
+      64
+     ],
+     "t_us": 8.191999979317188,
+     "vs_eager": 4.500000170530257,
+     "vs_compile": 0.5
+    },
+    {
+     "shape": [
+      1,
+      32,
+      128
+     ],
+     "t_us": 3.0720001086592674,
+     "vs_eager": 8.666666262446814,
+     "vs_compile": 1.0
+    }
+   ],
+   "speedup_vs_eager": 6.230383134647593,
+   "speedup_vs_compile": 0.7700291957101901
+  }
+ },
+ "row_mean|naive_feedback": {
+  "task": "row_mean",
+  "cond": "naive_feedback",
+  "round": 3,
+  "sample": 0,
+  "hash": "097cba7f18ee",
+  "path": "results/run3/code/row_mean_naive_feedback_r3_s0_097cba7f18ee.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 7:68: ...                                                                     ^ AttributeError(\"'tensor' object has no attribute 'any'\")"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 7:68: ...                                                                     ^ AttributeError(\"'tensor' object has no attribute 'any'\")"
+  }
+ },
+ "row_mean|rigorous_feedback": {
+  "task": "row_mean",
+  "cond": "rigorous_feedback",
+  "round": 3,
+  "sample": 0,
+  "hash": "b9ece2790259",
+  "path": "results/run3/code/row_mean_rigorous_feedback_r3_s0_b9ece2790259.py",
+  "score": 2.131079379857058,
+  "naive": {
+   "correct": true,
+   "speedup": 0.9171486795249172,
+   "t_ref_us": 21.785404533147812,
+   "t_us": 23.753405548632145
+  },
+  "rigorous": {
+   "correct": true,
+   "per_shape": [
+    {
+     "shape": [
+      1024,
+      1024
+     ],
+     "t_us": 8.1279999576509,
+     "vs_eager": 2.0157480369093865,
+     "vs_compile": 1.0078740184546933
+    },
+    {
+     "shape": [
+      4096,
+      4096
+     ],
+     "t_us": 54.207999259233475,
+     "vs_eager": 2.7978157901373955,
+     "vs_compile": 0.9991145150872266
+    },
+    {
+     "shape": [
+      1000,
+      3001
+     ],
+     "t_us": 14.336000196635723,
+     "vs_eager": 2.4285714378519865,
+     "vs_compile": 1.0
+    },
+    {
+     "shape": [
+      1,
+      50257
+     ],
+     "t_us": 7.7599999494850636,
+     "vs_eager": 1.6989691183153526,
+     "vs_compile": 0.7917526104785912
+    },
+    {
+     "shape": [
+      8192,
+      128
+     ],
+     "t_us": 9.216000325977802,
+     "vs_eager": 1.8888888552039012,
+     "vs_compile": 0.8888888552039012
+    }
+   ],
+   "speedup_vs_eager": 2.131079379857058,
+   "speedup_vs_compile": 0.9334513683328833
+  }
+ },
+ "softmax|naive_feedback": {
+  "task": "softmax",
+  "cond": "naive_feedback",
+  "round": 0,
+  "sample": 1,
+  "hash": "9f1483c19f2d",
+  "path": "results/run3/code/softmax_naive_feedback_r0_s1_9f1483c19f2d.py",
+  "score": 1.0102859252114476,
+  "naive": {
+   "correct": true,
+   "speedup": 1.0102859252114476,
+   "t_ref_us": 21.411944180727005,
+   "t_us": 21.193944849073887
+  },
+  "rigorous": {
+   "correct": true,
+   "per_shape": [
+    {
+     "shape": [
+      1024,
+      1024
+     ],
+     "t_us": 8.191999979317188,
+     "vs_eager": 2.3749999005240165,
+     "vs_compile": 1.0
+    },
+    {
+     "shape": [
+      4096,
+      4096
+     ],
+     "t_us": 75.77600330114365,
+     "vs_eager": 4.689188900861444,
+     "vs_compile": 0.9864864825003886
+    },
+    {
+     "shape": [
+      1000,
+      3001
+     ],
+     "t_us": 18.432000651955605,
+     "vs_eager": 2.6666666666666665,
+     "vs_compile": 1.0555554713430861
+    },
+    {
+     "shape": [
+      1,
+      50257
+     ],
+     "t_us": 158.720001578331,
+     "vs_eager": 0.1354838685449465,
+     "vs_compile": 0.06451612676088735
+    },
+    {
+     "shape": [
+      8192,
+      128
+     ],
+     "t_us": 12.28800043463707,
+     "vs_eager": 1.5833332070146293,
+     "vs_compile": 0.6666666414029259
+    }
+   ],
+   "speedup_vs_eager": 1.4482315121685023,
+   "speedup_vs_compile": 0.5373160855515455
+  }
+ },
+ "softmax|rigorous_feedback": {
+  "task": "softmax",
+  "cond": "rigorous_feedback",
+  "round": 0,
+  "sample": 3,
+  "hash": "fb7029b239cf",
+  "path": "results/run3/code/softmax_rigorous_feedback_r0_s3_fb7029b239cf.py",
+  "score": 1.4482607191717531,
+  "naive": {
+   "correct": true,
+   "speedup": 0.9731814866388171,
+   "t_ref_us": 20.502903498709202,
+   "t_us": 21.067913621664047
+  },
+  "rigorous": {
+   "correct": true,
+   "per_shape": [
+    {
+     "shape": [
+      1024,
+      1024
+     ],
+     "t_us": 8.191999979317188,
+     "vs_eager": 2.3749999005240165,
+     "vs_compile": 1.0
+    },
+    {
+     "shape": [
+      4096,
+      4096
+     ],
+     "t_us": 75.77600330114365,
+     "vs_eager": 4.689188900861444,
+     "vs_compile": 0.9864864825003886
+    },
+    {
+     "shape": [
+      1000,
+      3001
+     ],
+     "t_us": 18.432000651955605,
+     "vs_eager": 2.6666666666666665,
+     "vs_compile": 1.0555554713430861
+    },
+    {
+     "shape": [
+      1,
+      50257
+     ],
+     "t_us": 158.7039977312088,
+     "vs_eager": 0.13549753085434457,
+     "vs_compile": 0.06452263262239277
+    },
+    {
+     "shape": [
+      8192,
+      128
+     ],
+     "t_us": 12.28800043463707,
+     "vs_eager": 1.5833332070146293,
+     "vs_compile": 0.6666666414029259
+    }
+   ],
+   "speedup_vs_eager": 1.4482607191717531,
+   "speedup_vs_compile": 0.5373269217973567
+  }
+ },
+ "swiglu|naive_feedback": {
+  "task": "swiglu",
+  "cond": "naive_feedback",
+  "round": 3,
+  "sample": 0,
+  "hash": "49f3c0467add",
+  "path": "results/run3/code/swiglu_naive_feedback_r3_s0_49f3c0467add.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 8:31: ...                                ^ unsupported tensor index: <triton.language.core.slice object at 0x7c1cf09f0050>"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    2048
+   ],
+   "detail": "CompilationError: at 8:31: ...                                ^ unsupported tensor index: <triton.language.core.slice object at 0x7c1cfdf93890>"
+  }
+ },
+ "swiglu|rigorous_feedback": {
+  "task": "swiglu",
+  "cond": "rigorous_feedback",
+  "round": 3,
+  "sample": 0,
+  "hash": "d62dfaaf89d4",
+  "path": "results/run3/code/swiglu_rigorous_feedback_r3_s0_d62dfaaf89d4.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "UnsupportedLanguageConstruct: at 14:4: ...     ^ Boolean value of Tensor with more than one value is ambiguous"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    2048
+   ],
+   "detail": "UnsupportedLanguageConstruct: at 14:4: ...     ^ Boolean value of Tensor with more than one value is ambiguous"
+  }
+ },
+ "transpose|naive_feedback": {
+  "task": "transpose",
+  "cond": "naive_feedback",
+  "round": 3,
+  "sample": 0,
+  "hash": "7ea069e99982",
+  "path": "results/run3/code/transpose_naive_feedback_r3_s0_7ea069e99982.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 22:4: ...     ^ Expected pointer argument to have shape ['constexpr[32]', 'constexpr[32]'] but got ['constexpr[32]']"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 22:4: ...     ^ Expected pointer argument to have shape ['constexpr[32]', 'constexpr[32]'] but got ['constexpr[32]']"
+  }
+ },
+ "transpose|rigorous_feedback": {
+  "task": "transpose",
+  "cond": "rigorous_feedback",
+  "round": 3,
+  "sample": 0,
+  "hash": "741a623b0ebf",
+  "path": "results/run3/code/transpose_rigorous_feedback_r3_s0_741a623b0ebf.py",
+  "score": -1.0,
+  "naive": {
+   "correct": false,
+   "reason": "error",
+   "detail": "CompilationError: at 20:4: ...     ^ Expected pointer argument to have shape ['constexpr[128]', 'constexpr[128]'] but got ['constexpr[128]']"
+  },
+  "rigorous": {
+   "correct": false,
+   "reason": "error",
+   "shape": [
+    1024,
+    1024
+   ],
+   "detail": "CompilationError: at 20:4: ...     ^ Expected pointer argument to have shape ['constexpr[128]', 'constexpr[128]'] but got ['constexpr[128]']"
+  }
+ }
+}

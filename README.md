@@ -64,4 +64,75 @@ one-task smoke test, then the full study, and writes `results/run1/report.md`.
 
 ## Results
 
-Not yet run.
+One run on an RTX 4090 (`results/run3/`): Qwen2.5-Coder-14B-Instruct (AWQ, served by vLLM),
+12 tasks, both feedback conditions, 4 rounds of 4 candidates, 384 candidates in all.
+`results/run3/report.md` has every table; the numbers below are from it.
+
+**Claimed speedups over eager PyTorch mostly hold up. None beat torch.compile.**
+
+| | candidates |
+|---|---|
+| ran | 378 |
+| passed the naive check | 95 (25%) |
+| ...and the rigorous check | 87 |
+| naive harness says faster than PyTorch | 75 |
+| ...still faster than eager PyTorch under the rigorous harness | **70 of 75** |
+| ...faster than torch.compile under the rigorous harness | **0 of 75** |
+
+The 8 candidates that passed the naive check and failed the rigorous one were all
+`shape_overfit`: right at the dev shape, wrong on the others (typically a kernel that
+assumed the row width was a power of two). No candidate cached its output, wrote into its
+input or returned a view.
+
+Careful timing did not deflate the speedups. Among the 87 kernels correct under both
+harnesses the naive speedup has a median of 2.98x and the rigorous one 4.36x, and the two
+rank kernels alike (Kendall tau 0.81): flushing the L2 cache costs the eager reference,
+several kernels with intermediates in memory, more than a single fused kernel. What
+flatters these kernels is the baseline. The best correct kernel per task:
+
+| task | vs eager PyTorch | vs torch.compile |
+|---|---|---|
+| rope | 6.55x | 0.81x |
+| rmsnorm | 4.82x | 0.96x |
+| causal_softmax | 4.43x | 0.95x |
+| layernorm | 3.41x | 0.89x |
+| row_mean | 2.13x | 0.93x |
+| bias_gelu | 1.66x | 0.45x |
+| softmax | 1.45x | 0.54x |
+
+No correct kernel came out for add_rmsnorm, cross_entropy, matmul_bias_relu, swiglu or
+transpose.
+
+**Steering by the naive harness did not teach the model to game it.** Over all rounds the
+rigorous-feedback condition produced more correct kernels (50 against 37 of 189 each) and
+more tasks with a final kernel faster than eager (6 against 4 of 12), and it also had more
+of the shape-overfit failures (7 against 1). With one model and one seed, 50 against 37 is
+not significant (p about 0.11). Neither condition improved much over rounds.
+
+**What decided success was knowing Triton.** The first round of an earlier run used the same
+model and tasks with no Triton notes in the prompt: 0 of 96 first attempts were correct.
+With one page of notes (the language's common traps) and one worked kernel for an op that is
+not among the tasks, 28 of 96 first attempts passed the naive check and 26 the rigorous one
+(z = 5.5). Without the notes the model wrote CUDA habits into Triton: `tl.thread_idx`,
+`x ** 2` on tensors, `tl.tanh`, Python `math` calls inside kernels.
+
+## How the runs went
+
+1. **Run 1** lost every candidate: the evaluator ran with the code's folder as its working
+   directory and was handed a relative path. Not kept.
+2. **Run 2** (`results/run2/`) ran, but candidates were executed from a string, which Triton's
+   `@jit` cannot read source from, until a fix; after it, every error fed back to the model
+   was only its first line, which for a Triton compile error is a position with no cause, and
+   20 candidates were rejected for importing `time` or `numpy` or naming a parameter `input`.
+   Its first round is the no-notes comparison above. The file also holds a run interrupted
+   by hand; the analysis uses the complete run that follows it.
+3. **Run 3** (`results/run3/`) is the study: full error causes fed back, harmless imports
+   allowed, Triton notes in the prompt, 4 rounds.
+
+Each fix came with a test that fails without it.
+
+## Limits
+
+One model, one seed, one GPU, 12 tasks. A stronger model would produce more correct
+kernels; whether its claims would also hold against eager and fail against torch.compile is
+the obvious next run.
